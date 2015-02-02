@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<title>3D Tetris</title>
+		<link href="css/main.css" rel="stylesheet" type="text/css" media="all">
+	</head>
+	<body>
+
+		<span id="message" class="hidden"></span>
+
+		<aside id="game_info">
+			<dl>
+				<dt>Level:</dt><dd id="level">1</dd>
+				<dt>Lines:</dt><dd id="lines">0</dd>
+				<dt>Score:</dt><dd id="score">0</dd>
+			</dl>
+		</aside>
+
+		<a href="#" id="show_high_scores">Show High Scores</a>
+		<a href="#" id="show_controls">Show Controls</a>
+
+		<a href="#" id="mute_music">Mute Music</a>
+		<a href="#" id="mute_sound">Mute Sound</a>
+
+		<div class="popup hidden" id="submit_score_popup">
+			<p>You got a top 10 high score!</p>
+			<p>Enter your name below to get on the list.</p>
+			<form id="submit_score_form">
+				<fieldset>
+					<label id="name_required" class="error invisible">A name is required</label>
+					<input type="text" id="score_name" name="name" required />
+					<button type="button" id="submit_score_btn">Submit</button>
+				</fieldset>
+			</form>
+		</div>
+
+		<div class="popup hidden" id="high_scores">
+			<h2>Top Ten High Scores</h2>
+			<table>
+				<thead>
+					<tr><th></th> <th>Player</th> <th>Level</th> <th>Score</th></tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<button id="play_again">Play Again</button>
+			<button class="resume_game">Resume Game</button>
+		</div>
+
+		<div class="popup hidden" id="controls">
+			<h2>Controls</h2>
+			<dl class="clearfix">
+				<dt>Move Left:</dt><dd><span class="key">&#8592;</span></dd>
+				<dt>Move Right:</dt><dd><span class="key">&#8594;</span></dd>
+				<dt>Move Down:</dt><dd><span class="key">&#8595;</span></dd>
+				<dt>Rotate:</dt><dd><span class="key">&#8593;</span></dd>
+				<dt>Mute Music:</dt><dd><span class="key">M</span></dd>
+				<dt>Mute Sound Effects:</dt><dd><span class="key">S</span></dd>
+				<dt>Toggle Hint Block:</dt><dd><span class="key">H</span></dd>
+			</dl>
+			<button class="resume_game">Resume Game</button>
+		</div>
+
+		<div id="overlay" class="hidden"></div>
+
+		<audio id="audio_hit" src="audio/hit.ogg"></audio>
+		<audio id="audio_disolve" src="audio/disolve.ogg"></audio>
+		<audio id="music" src="audio/tetris_theme.ogg" preload="auto" autoplay loop></audio>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+		<script src="js/vendor/three.min.js"></script>
+		<script src="js/vendor/helvetiker_regular.typeface.js"></script>
+
+		<script src="js/shims.js"></script>
+		<script src="js/init.js"></script>
+		<script src="js/scores.js"></script>
+		<script src="js/stats.js"></script>
+		<script src="js/field.js"></script>
+		<script src="js/tetromino.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
