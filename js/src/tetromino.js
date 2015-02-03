@@ -1,7 +1,7 @@
 function Tetromino() {
 	this.orientation = 0; // 0 through 3
 	this.hint_orientation = 0;
-	frozen = false;
+	this.frozen = false;
 }
 
 Tetromino.prototype.init = function(isNextTet) {
@@ -75,7 +75,7 @@ Tetromino.prototype.moveRight = function() {
 }
 
 Tetromino.prototype.rotate = function() {
-	var testOrientation = this.orientation + 1;
+	let testOrientation = this.orientation + 1;
 	if (testOrientation === this.grid.length) testOrientation = 0;
 
 	if (this.blockCollission(this.x, this.y, testOrientation)) {
@@ -91,8 +91,8 @@ Tetromino.prototype.rotate = function() {
 
 Tetromino.prototype.quickDrop = function() {
 	if (!this.frozen) {
-		var startY = this.y;
-		for (var y = this.y; y>=0; y--) {
+		let startY = this.y;
+		for (let y = this.y; y>=0; y--) {
 			if (this.blockCollission(this.x, y) || this.downCollission(y+1)) {
 				this.erase();
 				this.y = y+1;
@@ -100,18 +100,18 @@ Tetromino.prototype.quickDrop = function() {
 				break;
 			}
 		}
-		var endY = this.y;
+		let endY = this.y;
 		stats.increaseScore(2*(startY-endY))
 		this.freeze();
 	}
 }
 
 Tetromino.prototype.adjustPosition = function() {
-	var currentGrid = this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	let currentGrid = this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length;
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] == 1) {
 				if (this.x+x < 0) {
 					this.x=0; 
@@ -127,14 +127,14 @@ Tetromino.prototype.adjustPosition = function() {
 }
 
 Tetromino.prototype.draw = function(isNextTet, isHint) {
-	var currentGrid = (isHint) ? this.grid[this.hint_orientation] : this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
-	var x_pos = (isHint) ? this.hint_x : this.x;
-	var y_pos = (isHint) ? this.hint_y : this.y;
-	var color = (isHint) ? 'gr' : this.color;
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	let currentGrid = (isHint) ? this.grid[this.hint_orientation] : this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length,
+		x_pos = (isHint) ? this.hint_x : this.x,
+		y_pos = (isHint) ? this.hint_y : this.y,
+		color = (isHint) ? 'gr' : this.color;
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] == 1) {
 				if (isNextTet) {
 					field.drawNextCube(this.x+x, this.y-y, this.color);
@@ -148,7 +148,7 @@ Tetromino.prototype.draw = function(isNextTet, isHint) {
 
 Tetromino.prototype.drawHint = function() {
 	if (showHint) {
-		for (var y = this.y; y>=0; y--) {
+		for (let y = this.y; y>=0; y--) {
 			if (this.blockCollission(this.x, y) || this.downCollission(y+1)) {			
 				if (typeof this.hint_x !== undefined) {
 					this.erase(true);
@@ -164,13 +164,13 @@ Tetromino.prototype.drawHint = function() {
 }
 
 Tetromino.prototype.erase = function(isHint) {
-	var currentGrid = (isHint) ? this.grid[this.hint_orientation] : this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
-	var x_pos = (isHint) ? this.hint_x : this.x;
-	var y_pos = (isHint) ? this.hint_y : this.y;
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	var currentGrid = (isHint) ? this.grid[this.hint_orientation] : this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length,
+		x_pos = (isHint) ? this.hint_x : this.x,
+		y_pos = (isHint) ? this.hint_y : this.y;
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] == 1) {
 				field.eraseCube(x_pos+x, y_pos-y);
 			}
@@ -179,12 +179,12 @@ Tetromino.prototype.erase = function(isHint) {
 }
 
 Tetromino.prototype.freeze = function() {
-	var currentGrid = this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
+	let currentGrid = this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length;
 
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {		
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {		
 			if (currentGrid[x][y] == 1) {
 				field.freezeCube(this.x+x, this.y-y, this.color);
 			}
@@ -197,13 +197,13 @@ Tetromino.prototype.freeze = function() {
 }
 
 Tetromino.prototype.downCollission = function(y) {
-	var currentGrid = this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
-	var testY = y || this.y;
+	var currentGrid = this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length,
+		testY = y || this.y;
 
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] ===1) {
 				if (testY-y === 0) return true;
 			}
@@ -214,15 +214,15 @@ Tetromino.prototype.downCollission = function(y) {
 }
 
 Tetromino.prototype.leftCollission = function() {
-	var currentGrid = this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
+	var currentGrid = this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length;
 
 	if (this.x > 0) {
 		return false;
 	} else {
-		for (var x=0; x<width; x++) {
-			for (var y=0; y<height; y++) {
+		for (let x=0; x<width; x++) {
+			for (let y=0; y<height; y++) {
 				if (currentGrid[x][y] === 1) {
 					if (this.x+x === 0) return true;
 				}
@@ -234,12 +234,12 @@ Tetromino.prototype.leftCollission = function() {
 }
 
 Tetromino.prototype.rightCollission = function() {
-	var currentGrid = this.grid[this.orientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
+	let currentGrid = this.grid[this.orientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length;
 
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] === 1) {
 				if (this.x+x === 9) return true;
 			}
@@ -250,14 +250,14 @@ Tetromino.prototype.rightCollission = function() {
 }
 
 Tetromino.prototype.blockCollission = function(testX, testY, testOrientation) {
-	var testOrientation = testOrientation || this.orientation;
-	var currentGrid = this.grid[testOrientation];
-	var width = currentGrid.length;
-	var height = currentGrid[0].length;
+	let testOrientation = testOrientation || this.orientation,
+		currentGrid = this.grid[testOrientation],
+		width = currentGrid.length,
+		height = currentGrid[0].length;
 
 	// Check if any cube that is going to be drawn is at a frozen block
-	for (var x=0; x<width; x++) {
-		for (var y=0; y<height; y++) {
+	for (let x=0; x<width; x++) {
+		for (let y=0; y<height; y++) {
 			if (currentGrid[x][y] == 1) {
 				if (field.isFrozen(testX+x,testY-y)) return true;
 			}
@@ -267,7 +267,7 @@ Tetromino.prototype.blockCollission = function(testX, testY, testOrientation) {
 	return false;
 }
 
-var protoTet = new Tetromino();
+let protoTet = new Tetromino();
 
 
 function TypeJTet(isNextTet) {
@@ -289,7 +289,7 @@ function TypeJTet(isNextTet) {
 
 	this.init(isNextTet);
 }
-TypeLTet.prototype = protoTet;
+TypeJTet.prototype = protoTet;
 
 
 function TypeLTet(isNextTet) {
@@ -313,7 +313,7 @@ function TypeLTet(isNextTet) {
 
  	this.init(isNextTet);
 }
-TypeJTet.prototype = protoTet;
+TypeLTet.prototype = protoTet;
 
 
 function TypeZTet(isNextTet) {
@@ -335,7 +335,7 @@ function TypeZTet(isNextTet) {
 
 	this.init(isNextTet);
 }
-TypeSTet.prototype = protoTet;
+TypeZTet.prototype = protoTet;
 
 
 function TypeSTet(isNextTet) {
@@ -357,7 +357,7 @@ function TypeSTet(isNextTet) {
 
  	this.init(isNextTet);
 }
-TypeZTet.prototype = protoTet;
+TypeSTet.prototype = protoTet;
 
 
 function TypeOTet(isNextTet) {

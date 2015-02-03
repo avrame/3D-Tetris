@@ -1,5 +1,5 @@
 function Stats() {
-	var lines = 0,
+	let lines = 0,
 		level = 1,
 		dropScore = 0,
 		score = 0;
@@ -32,7 +32,7 @@ function Stats() {
 			document.getElementById('lines').innerHTML = lines;
 		},
 		calculateLevel: function() {
-			tempLevel = Math.floor(lines / 10) + 1;
+			let tempLevel = Math.floor(lines / 10) + 1;
 			if (tempLevel !== level) {
 				level = tempLevel;
 				displayMessage("Level "+level);
