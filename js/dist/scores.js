@@ -36,8 +36,9 @@ function showHighScores() {
 		$high_scores_table.html("");
 		records.forEach(function (record, index) {
 			var rank = index + 1,
-			    score = record.score.toLocaleString();
-			$high_scores_table.append("<tr><td>" + rank + ".</td> <td>" + record.name + "</td> <td>" + record.level + "</td> <td>" + score + "</td></tr>");
+			    score = record.score.toLocaleString(),
+			    html = "<tr><td>" + rank + ".</td> <td>" + record.name + "</td> <td>" + record.level + "</td> <td>" + score + "</td></tr>";
+			$high_scores_table.append(html);
 		});
 		$high_scores.removeClass("hidden");
 		$overlay.removeClass("hidden");
