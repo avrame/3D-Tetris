@@ -86,7 +86,7 @@ scene.add( textMesh );
 nextTet = createRandomTet(true);
 currentTet = createRandomTet();
 
-window.onkeydown = function(e) {
+window.onkeydown = e => {
 	let key = e.keyCode ? e.keyCode : e.which;
 
 	if (key == 38) {
@@ -107,7 +107,7 @@ window.onkeydown = function(e) {
 	}
 }
 
-window.onkeyup = function(e) {
+window.onkeyup = e => {
 	let key = e.keyCode ? e.keyCode : e.which;
 
 	if (key == 38) {
@@ -216,7 +216,7 @@ function createNewTet() {
 	stopDropping = false;
 }
 
-var $message = $("#message");
+let $message = $("#message");
 function displayMessage(text) {
 	$message.html(text);
 	$message.removeClass("hidden");

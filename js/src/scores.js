@@ -49,7 +49,7 @@ function submitHighScore(e) {
 		score = stats.getScore();
 
 	if (name != "") {
-		$.post( "submit_score.php", { name: name, level: level, score: score }, function(){
+		$.post( "submit_score.php", { name, level, score }, function(){
 			$submit_score_popup.addClass("hidden");
 			// Show high score list
 			$("#play_again").show();
