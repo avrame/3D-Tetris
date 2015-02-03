@@ -8,12 +8,13 @@ var $submit_score_popup = $("#submit_score_popup"),
 function getHighScores() {
 	$.get("scores.php", function (data) {
 		var player_score = stats.getScore(),
-		    records = JSON.parse(data);
+		    records = JSON.parse(data),
+		    lowest_score = 0;
 
 		records = records.array;
 
 		if (records.length > 0) {
-			var _lowest_score = records[records.length - 1].score;
+			lowest_score = records[records.length - 1].score;
 		}
 
 		if (records.length < 10 || player_score > lowest_score) {
